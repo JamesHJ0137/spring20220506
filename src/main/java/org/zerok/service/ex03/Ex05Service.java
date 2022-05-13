@@ -1,17 +1,22 @@
 package org.zerok.service.ex03;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.zerok.domain.ex02.BoardDto;
 import org.zerok.mapper.ex03.Ex03Mapper;
+import org.zerok.mapper.ex03.Ex04Mapper;
 
 @Service
 public class Ex05Service {
 
 	@Autowired
 	private Ex03Mapper mapper;
+	@Autowired
+	private Ex04Mapper replyMapper;
 	
 	public String getCustomerNameById(int id) {
 		return mapper.selectCustomerNameById(id);
@@ -31,6 +36,28 @@ public class Ex05Service {
 
 	public boolean updateBoard(BoardDto board) {
 		int cnt =  mapper.updateBoard(board);
+		
+		return cnt == 1;
+	}
+
+	@Transactional
+	public boolean removeBoardById(int id) {
+		// 댓글 지우기
+		replyMapper.deleteReplyByBoard(id);
+		
+		// for transaction
+		// exception
+//		int i = 3 / 0;
+		
+		// 게시물 지우기
+		int cnt = mapper.deleteBoard(id);
+		
+		return cnt == 1;
+	}
+
+	public boolean addBoard(BoardDto board) {
+		board.setInserted(LocalDateTime.now());
+		int cnt = mapper.insertBoard(board);
 		
 		return cnt == 1;
 	}
