@@ -24,18 +24,18 @@
 	
 	작성일시 : <input type="datetime-local" value="${board.inserted }" readonly /> <br />
 	
-	<button>수정</button>
+	<button><i class="fa-solid fa-eraser"></i> 수정</button>
 	</form>
 	
 	<c:url value="/ex15/board/remove" var="removeLink" />
 	<form action="${removeLink }" method="post">
 		<input type="hidden" name="id" value="${board.id }"/>
-		<button>삭제</button>
+		<button><i class="fa-regular fa-trash-can"></i> 삭제</button>
 	</form>
 	
 	<hr />
 	
-	<h1>댓글</h1>
+	<h1><i class="fa-solid fa-comment-dots"></i> 댓글</h1>
 	
 	<c:url value="/ex16/reply/add" var="replyAddLink" />
 	<form action="${replyAddLink }" method="post">
@@ -58,14 +58,14 @@
 					<input type="hidden" value="${reply.id }" name="id" />
 					<input type="hidden" name="boardId" value="${board.id }" />
 					<input type="text" value="${reply.content }" name="content" />
-					<button>수정</button>
+					<button><i class="fa-solid fa-eraser"></i> 수정</button>
 				</form>
 				
 				<c:url value="/ex16/reply/remove" var="replyRemoveLink" />
 				<form action="${replyRemoveLink }" method="post">
 					<input type="hidden" name="id" value="${reply.id }" />
 					<input type="hidden" name="boardId" value="${board.id }" />
-					<button>삭제</button>
+					<button><i class="fa-regular fa-trash-can"></i> 삭제</button>
 				</form>
 			</div>
 		
